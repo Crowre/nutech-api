@@ -25,7 +25,7 @@ const deleteOldProfileImage = async (imageUrl) => {
             }
         }
     } catch (error) {
-        console.error('❌ Error deleting old profile image:', error);
+        console.error('Error deleting old profile image:', error);
     }
 };
 
@@ -63,33 +63,62 @@ const validateUpdateFields = (first_name, last_name, hasFile) => {
     }
 };
 
+// const getCurrentUser = async (email) => {
+//     const [users] = await db.execute(
+//         'SELECT first_name, last_name, profile_image FROM users WHERE email = ?',
+//         [email]
+//     );
+
+//     if (users.length === 0) {
+//         throw new Error('USER_NOT_FOUND');
+//     }
+
+//     return users[0];
+// };
 const getCurrentUser = async (email) => {
-    const [users] = await db.execute(
-        'SELECT first_name, last_name, profile_image FROM users WHERE email = ?',
+    const result = await db.query(
+        'SELECT first_name, last_name, profile_image FROM users WHERE email = $1',
         [email]
     );
 
-    if (users.length === 0) {
+    if (result.rows.length === 0) {
         throw new Error('USER_NOT_FOUND');
     }
 
-    return users[0];
+    return result.rows[0];
 };
 
+
+// const updateUserProfile = async (email, firstName, lastName, profileImage) => {
+//     await db.execute(
+//         'UPDATE users SET first_name = ?, last_name = ?, profile_image = ? WHERE email = ?',
+//         [firstName, lastName, profileImage, email]
+//     );
+// };
 const updateUserProfile = async (email, firstName, lastName, profileImage) => {
-    await db.execute(
-        'UPDATE users SET first_name = ?, last_name = ?, profile_image = ? WHERE email = ?',
+    await db.query(
+        'UPDATE users SET first_name = $1, last_name = $2, profile_image = $3 WHERE email = $4',
         [firstName, lastName, profileImage, email]
     );
 };
 
+
+// const getUserProfile = async (email) => {
+//     const [users] = await db.execute(
+//         'SELECT email, first_name, last_name, profile_image FROM users WHERE email = ?',
+//         [email]
+//     );
+//     return users[0];
+// };
 const getUserProfile = async (email) => {
-    const [users] = await db.execute(
-        'SELECT email, first_name, last_name, profile_image FROM users WHERE email = ?',
+    const { rows } = await db.query(
+        'SELECT email, first_name, last_name, profile_image FROM users WHERE email = $1',
         [email]
     );
-    return users[0];
+    return rows[0];
 };
+
+
 
 // Main controller functions
 export const getProfile = async (req, res) => {
