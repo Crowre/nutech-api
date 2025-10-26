@@ -68,12 +68,6 @@ export const register = async (req, res) => {
             [email, hashedPassword, first_name, last_name]
         );
 
-        // Tambah saldo awal
-        await db.query(
-            'INSERT INTO balances (email, balance) VALUES ($1, $2)',
-            [email, 0]
-        );
-
         // Ambil data user yang baru dibuat
         const users = await db.query(
             'SELECT email, first_name, last_name, profile_image FROM users WHERE email = $1',

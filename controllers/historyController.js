@@ -134,7 +134,7 @@ export const getTransactionHistory = async (req, res) => {
         }, 'Get History Berhasil');
 
     } catch (error) {
-        console.error('❌ Error fetching transaction history:', error);
+        console.error('Error fetching transaction history:', error);
         return serverError(res, error);
     }
 };

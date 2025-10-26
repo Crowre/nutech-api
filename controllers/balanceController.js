@@ -117,7 +117,7 @@ export const getBalance = async (req, res) => {
 // };
 
 export const topUpBalance = async (req, res) => {
-    const client = await db.connect(); // gunakan client, bukan connection seperti MySQL
+    const client = await db.connect();
 
     try {
         await client.query('BEGIN');

@@ -41,9 +41,11 @@ const dbConfig = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     port: process.env.DB_PORT || 5432,
-    ssl: {
-        rejectUnauthorized: false // jika kamu pakai Neon atau SSL remote
-    },
+    // ssl: {
+    //     rejectUnauthorized: false // jika kamu pakai Neon atau SSL remote
+    // },
+    // ganti ssl ketika akan melakukan deployment
+    ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
     max: 10, // connection limit
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000

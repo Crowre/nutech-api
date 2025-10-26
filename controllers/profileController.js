@@ -88,13 +88,6 @@ const getCurrentUser = async (email) => {
     return result.rows[0];
 };
 
-
-// const updateUserProfile = async (email, firstName, lastName, profileImage) => {
-//     await db.execute(
-//         'UPDATE users SET first_name = ?, last_name = ?, profile_image = ? WHERE email = ?',
-//         [firstName, lastName, profileImage, email]
-//     );
-// };
 const updateUserProfile = async (email, firstName, lastName, profileImage) => {
     await db.query(
         'UPDATE users SET first_name = $1, last_name = $2, profile_image = $3 WHERE email = $4',
