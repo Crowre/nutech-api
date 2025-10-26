@@ -78,6 +78,7 @@ export const register = async (req, res) => {
 
     } catch (error) {
         return serverError(res, error);
+
     }
 };
 
