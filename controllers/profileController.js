@@ -40,7 +40,7 @@ const handleFileUpload = (file) => {
             if (!allowedFormats.includes(file.mimetype) ||
                 !allowedExtensions.includes(fileExtension) ||
                 file.size > 2 * 1024 * 1024) {
-                fs.unlinkSync(file.path);
+                // fs.unlinkSync(file.path);     //sementara ini dinonaktifkan karena masih menggunakan server vercel
                 reject(new Error('FORMAT_ERROR'));
                 return;
             }
