@@ -42,7 +42,6 @@ export const authenticateToken = async (req, res, next) => {
         // Verifikasi token JWT
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        // Ganti query MySQL -> PostgreSQL
         const users = await db.query(
             'SELECT email, first_name, last_name, profile_image FROM users WHERE email = $1',
             [decoded.email]

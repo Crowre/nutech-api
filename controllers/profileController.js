@@ -63,18 +63,6 @@ const validateUpdateFields = (first_name, last_name, hasFile) => {
     }
 };
 
-// const getCurrentUser = async (email) => {
-//     const [users] = await db.execute(
-//         'SELECT first_name, last_name, profile_image FROM users WHERE email = ?',
-//         [email]
-//     );
-
-//     if (users.length === 0) {
-//         throw new Error('USER_NOT_FOUND');
-//     }
-
-//     return users[0];
-// };
 const getCurrentUser = async (email) => {
     const result = await db.query(
         'SELECT first_name, last_name, profile_image FROM users WHERE email = $1',
@@ -95,14 +83,6 @@ const updateUserProfile = async (email, firstName, lastName, profileImage) => {
     );
 };
 
-
-// const getUserProfile = async (email) => {
-//     const [users] = await db.execute(
-//         'SELECT email, first_name, last_name, profile_image FROM users WHERE email = ?',
-//         [email]
-//     );
-//     return users[0];
-// };
 const getUserProfile = async (email) => {
     const { rows } = await db.query(
         'SELECT email, first_name, last_name, profile_image FROM users WHERE email = $1',
@@ -189,15 +169,15 @@ export const updateProfile = async (req, res) => {
         }
 
         // Handle specific errors
-        if (error.message === 'FORMAT_ERROR') {
-            return errorResponse(res, 'Format Image tidak sesuai');
-        }
-        if (error.message === 'INCOMPLETE_PARAMETERS') {
-            return errorResponse(res, 'Parameter tidak lengkap. Minimal satu field harus diupdate');
-        }
-        if (error.message === 'USER_NOT_FOUND') {
-            return errorResponse(res, 'User tidak ditemukan', 404, 108);
-        }
+        // if (error.message === 'FORMAT_ERROR') {
+        //     return errorResponse(res, 'Format Image tidak sesuai');
+        // }
+        // if (error.message === 'INCOMPLETE_PARAMETERS') {
+        //     return errorResponse(res, 'Parameter tidak lengkap. Minimal satu field harus diupdate');
+        // }
+        // if (error.message === 'USER_NOT_FOUND') {
+        //     return errorResponse(res, 'User tidak ditemukan', 404, 108);
+        // }
 
         return serverError(res, error);
     }
