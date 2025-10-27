@@ -40,7 +40,8 @@ const handleFileUpload = (file) => {
             if (!allowedFormats.includes(file.mimetype) ||
                 !allowedExtensions.includes(fileExtension) ||
                 file.size > 2 * 1024 * 1024) {
-                //fs.unlinkSync(file.path);                 //dinonaktifkan karena belum memiliki server yang memadai untuk menyimpan foto
+
+                fs.unlinkSync(file.path);     //program upload foto tidak bisa dieksekusi karena masih menggunakan server vercel yang memiliki keterbatasan untuk menyimpan file secara permanen
                 reject(new Error('FORMAT_ERROR'));
                 return;
             }
